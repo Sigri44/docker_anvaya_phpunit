@@ -1,5 +1,6 @@
 FROM php:7.3.12
-#apt-get install libvpx-dev libjpeg-dev libxpm-dev zlib1g-dev libfreetype6-dev libexpat1-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev -yqq
+# Config Yarn apt
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update -yqq && apt-get install -y \
   apt-utils \
   git \
@@ -10,7 +11,8 @@ RUN apt-get update -yqq && apt-get install -y \
   libxml2-dev \
   libpng-dev \
   libbz2-dev -yqq \
-  acl
+  acl \
+  yarn
 RUN docker-php-ext-install mbstring pdo_mysql curl json intl gd xml zip bz2 opcache
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
